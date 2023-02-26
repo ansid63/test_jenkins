@@ -59,7 +59,7 @@ pipeline {
 //             sh "./cm_linux_amd64 selenoid start --browsers-json ${env.WORKSPACE}/browsers.json --args '-limit 5'"
 //             sh "./cm_linux_amd64 selenoid status"
                echo "Current workspace is ${env.WORKSPACE}"
-               bat "dir /s /b /o:gn"
+               bat "dir /b /a-d"
 //         }
             }
         }
@@ -100,5 +100,13 @@ pipeline {
 //         ])
 //       }
 //      }
+    stage('Remove image') {
+        steps {
+            script {
+                bat "docker rmi python-tests:latest"
+                      }
+                }
+              }
+
     }
   }
