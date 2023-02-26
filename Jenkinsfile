@@ -1,0 +1,15 @@
+pipeline {
+  agent any
+  	environment {
+    ALLURE_DIR = "./src/test/allure-reports"
+	TESTRAIL_CMD_OPTIONS = "--testrail --tr-config=testrail.cfg --tr-run-id=1285 --tr-no-ssl-cert-check"
+	BUILD_BY_USER = currentBuild.buildCauses.toString().contains('UserIdCause')
+	}
+  stages {
+    stage('sleep') {
+        if (currentBuild.buildCauses.toString().contains('UserIdCause')){
+            echo $ALLURE_DIR
+            }
+          }
+        }
+     }
