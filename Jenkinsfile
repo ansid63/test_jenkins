@@ -7,13 +7,15 @@ pipeline {
 	}
   stages {
     stage('sleep') {
-        script {
-            if (currentBuild.buildCauses.toString().contains('UserIdCause')){
-                echo $ALLURE_DIR }
-            else {
-                  echo "Auto"
-                    }
-                  }
-            }
-          }
+        steps {
+            script {
+                if (currentBuild.buildCauses.toString().contains('UserIdCause')){
+                    echo $ALLURE_DIR }
+                else {
+                      echo "Auto"
+                        }
+                      }
+                }
+              }
         }
+    }
