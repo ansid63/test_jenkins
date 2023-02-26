@@ -59,7 +59,7 @@ pipeline {
 //             sh "./cm_linux_amd64 selenoid start --browsers-json ${homeDir}/browsers.json --args '-limit 5'"
 //             sh "./cm_linux_amd64 selenoid status"
                echo "Check json"
-               echo $pwd()
+               echo "Current workspace is ${env.WORKSPACE}"
 //         }
             }
         }
