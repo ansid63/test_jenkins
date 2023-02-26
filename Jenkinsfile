@@ -74,7 +74,7 @@ pipeline {
                         uiPaths.add("${BASE_UI_PATH}/test_auth")
                     }
                     uiPath = uiPaths.join(" ")
-                    if (apiPath) {
+                    if (uiPath) {
                         echo "Running tests"
 //                         echo "headless mode=${HEADLESS}"
                         echo "${BASE_CMD_OPTIONS} --log-cli-level=INFO ${uiPath} ${TESTRAIL_CMD_OPTIONS} --alluredir ${ALLURE_DIR}"
