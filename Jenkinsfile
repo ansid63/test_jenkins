@@ -5,6 +5,7 @@ pipeline {
 	TESTRAIL_CMD_OPTIONS = "--testrail --tr-config=testrail.cfg --tr-run-id=1285 --tr-no-ssl-cert-check"
 	BASE_CMD_OPTIONS = "python -m pytest -n 4 --dist loadfile -q -v --reruns=1"
 	BASE_API_PATH = "./src/test/api/tests"
+	BASE_UI_PATH = "./src/test/ui/tests"
 	API_PATHS = ""
 	}
   stages {
@@ -25,7 +26,7 @@ pipeline {
                       }
                 }
               }
-    stage('API tests') {
+    stage('Run API tests') {
         steps {
             catchError {
                 script {
@@ -37,7 +38,7 @@ pipeline {
                     if (params.API_2) {
                         apiPaths.add("${BASE_API_PATH}/test_document")
                     }
-                    if (params.AUTH) {
+                    if (params.AUTH_API) {
                         apiPaths.add("${BASE_API_PATH}/test_auth")
                     }
                     apiPath = apiPaths.join(" ")
@@ -57,7 +58,41 @@ pipeline {
 //             sh "./cm_linux_amd64 selenoid status"
 //         }
 //     }
-
-
+    stage('Run UI tests') {
+        steps {
+            catchError {
+                script {
+                    def uiPaths = []
+                    def uiPath
+                    if (params.UI_1) {
+                        uiPaths.add("${BASE_UI_PATH}/test_dispatcher")
+                    }
+                    if (params.UI_2) {
+                        uiPaths.add("${BASE_UI_PATH}/test_document")
+                    }
+                    if (params.AUTH_UI) {
+                        uiPaths.add("${BASE_UI_PATH}/test_auth")
+                    }
+                    uiPath = uiPaths.join(" ")
+                    if (apiPath) {
+                        echo "Running tests"
+//                         echo "headless mode=${HEADLESS}"
+                        echo "${BASE_CMD_OPTIONS} --log-cli-level=INFO ${uiPath} ${TESTRAIL_CMD_OPTIONS} --alluredir ${ALLURE_DIR}"
+                        }
+                    }
+                }
+            }
+        }
+//     stage('Reports') {
+//       steps {
+//         allure([
+//           includeProperties: false,
+//           jdk: '',
+//           properties: [],
+//           reportBuildPolicy: 'ALWAYS',
+//           results: [[path: 'report']]
+//         ])
+//       }
+//      }
     }
   }
