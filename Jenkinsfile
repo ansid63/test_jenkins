@@ -9,15 +9,15 @@ pipeline {
 	API_PATHS = ""
 	}
   stages {
-    stage("Build image") {
-		  steps {
-			catchError {
-			  script {
-				docker.build("python-tests", "-f Dockerfile .")
-			  }
-			 }
-		  }
-		}
+//     stage("Build image") {
+// 		  steps {
+// 			catchError {
+// 			  script {
+// 				docker.build("python-tests", "-f Dockerfile .")
+// 			  }
+// 			 }
+// 		  }
+// 		}
     stage('sleep') {
         steps {
             script {
