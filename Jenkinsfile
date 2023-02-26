@@ -17,7 +17,6 @@ pipeline {
                 }
               }
             }
-        }
     stage('API tests') {
         catchError {
             script {
@@ -40,7 +39,6 @@ pipeline {
                 }
             }
         }
+}
 
-
-        }
     }
