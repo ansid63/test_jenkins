@@ -10,7 +10,7 @@ pipeline {
         steps {
             script {
                 if (currentBuild.buildCauses.toString().contains('UserIdCause')){
-                    echo $ALLURE_DIR }
+                    echo ALLURE_DIR }
                 else {
                       echo "Auto"
                         }
