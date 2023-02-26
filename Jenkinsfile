@@ -9,15 +9,15 @@ pipeline {
 	API_PATHS = ""
 	}
   stages {
-//     stage("Build image") {
-// 		  steps {
-// 			catchError {
-// 			  script {
-// 				docker.build("python-tests", "-f Dockerfile .")
-// 			  }
-// 			 }
-// 		  }
-// 		}
+    stage("Build image") {
+		  steps {
+			catchError {
+			  script {
+				docker.build("python-tests", "-f Dockerfile .")
+			  }
+			 }
+		  }
+		}
     stage('sleep') {
         steps {
             script {
@@ -53,13 +53,15 @@ pipeline {
 
     stage("Start Selenoid") {
            steps {
+               script {
 //         dir('/home/av@domain.ru/') {
 //             sh "./cm_linux_amd64 selenoid stop"
 //             sh "./cm_linux_amd64 selenoid start --browsers-json ${homeDir}/browsers.json --args '-limit 5'"
 //             sh "./cm_linux_amd64 selenoid status"
                echo "Check json"
-               sh "ls"
+               sh("ls -la ${pwd()}")
 //         }
+            }
         }
     }
     stage('Run UI tests') {
