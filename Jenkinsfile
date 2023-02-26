@@ -11,9 +11,6 @@ pipeline {
             script {
                 if (currentBuild.buildCauses.toString().contains('UserIdCause')){
                     echo "Path to Allure ${ALLURE_DIR}" }
-                else {
-                      echo "Auto"
-                        }
                       }
                 }
               }
