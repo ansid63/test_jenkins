@@ -52,6 +52,7 @@ pipeline {
         }
 
     stage("Start Selenoid") {
+           steps {
 //         dir('/home/av@domain.ru/') {
 //             sh "./cm_linux_amd64 selenoid stop"
 //             sh "./cm_linux_amd64 selenoid start --browsers-json ${homeDir}/browsers.json --args '-limit 5'"
@@ -59,6 +60,7 @@ pipeline {
                echo "Check json"
                sh "ls -la ${pwd()}"
 //         }
+        }
     }
     stage('Run UI tests') {
         steps {
