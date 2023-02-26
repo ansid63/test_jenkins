@@ -8,11 +8,20 @@ pipeline {
 	API_PATHS = ""
 	}
   stages {
+//     stage("Build image") {
+// 		  steps {
+// 			catchError {
+// 			  script {
+// 				docker.build("python-tests", "-f Dockerfile .")
+// 			  }
+// 			 }
+// 		  }
+// 		}
     stage('sleep') {
         steps {
             script {
                 if (currentBuild.buildCauses.toString().contains('UserIdCause')){
-                    echo "Path to Allure ${ALLURE_DIR}" }
+                    echo "timeout(time:120, unit: 'SECONDS')" }
                       }
                 }
               }
@@ -40,5 +49,15 @@ pipeline {
                 }
             }
         }
+
+//     stage("Start Selenoid") {
+//         dir('/home/av@domain.ru/') {
+//             sh "./cm_linux_amd64 selenoid stop"
+//             sh "./cm_linux_amd64 selenoid start --browsers-json ${homeDir}/browsers.json --args '-limit 5'"
+//             sh "./cm_linux_amd64 selenoid status"
+//         }
+//     }
+
+
     }
   }
