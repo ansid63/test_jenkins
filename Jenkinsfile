@@ -9,6 +9,9 @@ pipeline {
     stage('sleep') {
         if (currentBuild.buildCauses.toString().contains('UserIdCause')){
             echo $ALLURE_DIR
+        else {
+              echo "Auto"
+                }
             }
           }
         }
