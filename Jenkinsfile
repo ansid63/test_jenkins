@@ -17,24 +17,26 @@ pipeline {
                 }
               }
     stage('API tests') {
-        catchError {
-            script {
-        def apiPaths = []
-        def apiPath
-        if (params.API_1) {
-            apiPaths.add("${BASE_API_PATH}/test_dispatcher")
-        }
-        if (params.API_2) {
-            apiPaths.add("${BASE_API_PATH}/test_document")
-        }
-        if (params.AUTH) {
-            apiPaths.add("${BASE_API_PATH}/test_auth")
-        }
-        apiPath = apiPaths.join(" ")
-        if (apiPath) {
-                echo "Running API tests"
-                echo "${BASE_CMD_OPTIONS} ${apiPath} ${TESTRAIL_CMD_OPTIONS} --alluredir ${ALLURE_DIR}"
-            }
+        steps {
+            catchError {
+                script {
+                    def apiPaths = []
+                    def apiPath
+                    if (params.API_1) {
+                        apiPaths.add("${BASE_API_PATH}/test_dispatcher")
+                    }
+                    if (params.API_2) {
+                        apiPaths.add("${BASE_API_PATH}/test_document")
+                    }
+                    if (params.AUTH) {
+                        apiPaths.add("${BASE_API_PATH}/test_auth")
+                    }
+                    apiPath = apiPaths.join(" ")
+                    if (apiPath) {
+                            echo "Running API tests"
+                            echo "${BASE_CMD_OPTIONS} ${apiPath} ${TESTRAIL_CMD_OPTIONS} --alluredir ${ALLURE_DIR}"
+                        }
+                    }
                 }
             }
         }
