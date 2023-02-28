@@ -89,15 +89,6 @@ pipeline {
                 }
             }
         }
-    stage("Rocket Chat") {
-            steps {
-                catchError {
-                    script {
-                        def summaryJson = readJSON file: 'browsers.json'
-                        println summaryJson["chrome"]
-    }}}
-    }
-
 //     stage('Reports') {
 //       steps {
 //         allure([
@@ -109,6 +100,17 @@ pipeline {
 //         ])
 //       }
 //      }
+    stage("Rocket Chat") {
+            steps {
+                catchError {
+                    script {
+                        docker.image('python-tests') {
+                            def summaryJson = readJSON file: 'browsers.json'
+                            println summaryJson["chrome"] }
+                        }
+                    }
+                }
+            }
     stage('Remove image') {
         steps {
             script {
