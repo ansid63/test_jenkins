@@ -89,6 +89,17 @@ pipeline {
                 }
             }
         }
+    stage("Rocket Chat") {
+            steps {
+                catchError {
+                    script {
+                        import groovy.json.JsonSlurper
+                        def summaryJsonString = sh(returnStdout: true, script: 'cat .browsers.json').trim()
+                        def summaryJson = new JsonSlurper().parseText(summaryJsonString)
+                        println summaryJson["chrome"]
+    }}}
+    }
+
 //     stage('Reports') {
 //       steps {
 //         allure([
