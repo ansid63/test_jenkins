@@ -93,9 +93,7 @@ pipeline {
             steps {
                 catchError {
                     script {
-                        import groovy.json.JsonSlurper
-                        def summaryJsonString = sh(returnStdout: true, script: 'cat .browsers.json').trim()
-                        def summaryJson = new JsonSlurper().parseText(summaryJsonString)
+                        def summaryJson = readJSON file: '.browsers.json'
                         println summaryJson["chrome"]
     }}}
     }
