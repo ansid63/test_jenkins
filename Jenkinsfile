@@ -104,8 +104,9 @@ pipeline {
             steps {
                 catchError {
                     script {
+                        docker.image('python-tests').inside {
                         def summaryJson = readJSON file: 'browsers.json'
-                        println summaryJson["chrome"]
+                        println summaryJson["chrome"]}
                         }
                     }
                 }
