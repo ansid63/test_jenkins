@@ -104,19 +104,19 @@ pipeline {
             steps {
                 catchError {
                     script {
-                        docker.image('python-tests:latest').inside {
-                        sh "ls"}
+                        def summaryJson = readJSON file: 'browsers.json'
+                        println summaryJson["chrome"]
                         }
                     }
                 }
             }
-//     stage('Remove image') {
-//         steps {
-//             script {
-//                 bat "docker rmi python-tests:latest"
-//                       }
-//                 }
-//               }
+    stage('Remove image') {
+        steps {
+            script {
+                bat "docker rmi python-tests:latest"
+                      }
+                }
+              }
 
     }
   }
