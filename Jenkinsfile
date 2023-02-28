@@ -93,7 +93,7 @@ pipeline {
             steps {
                 catchError {
                     script {
-                        def summaryJson = readJSON file: '.browsers.json'
+                        def summaryJson = readJSON file: 'browsers.json'
                         println summaryJson["chrome"]
     }}}
     }
