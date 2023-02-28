@@ -104,19 +104,19 @@ pipeline {
             steps {
                 catchError {
                     script {
-                        docker.image('python-tests').inside {
+                        docker.image('python-tests:latest').inside {
                         sh "ls"}
                         }
                     }
                 }
             }
-    stage('Remove image') {
-        steps {
-            script {
-                bat "docker rmi python-tests:latest"
-                      }
-                }
-              }
+//     stage('Remove image') {
+//         steps {
+//             script {
+//                 bat "docker rmi python-tests:latest"
+//                       }
+//                 }
+//               }
 
     }
   }
