@@ -105,7 +105,7 @@ pipeline {
                 catchError {
                     script {
                         docker.image('python-tests').inside {
-                        sh "ls"
+                        sh "ls"}
                         }
                     }
                 }
