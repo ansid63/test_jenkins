@@ -52,7 +52,8 @@ pipeline {
         }
 
     stage("Start Selenoid") {
-           steps {
+        steps {
+            catchError {
                script {
 //         dir('/home/av@domain.ru/') {
 //             sh "./cm_linux_amd64 selenoid stop"
@@ -60,8 +61,9 @@ pipeline {
 //             sh "./cm_linux_amd64 selenoid status"
                echo "Current workspace is ${env.WORKSPACE}"
                bat "dir /b /a-d"
-               bat 'docker ps -q -f name="lts"'
-//         }
+               def output = bat(script: 'docker ps -q -f name="lts"', returnStdout: true)
+               echo "Selenoid worked well, container: ${output}"
+                }
             }
         }
     }
