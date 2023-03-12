@@ -60,7 +60,7 @@ pipeline {
 //             sh "./cm_linux_amd64 selenoid status"
                echo "Current workspace is ${env.WORKSPACE}"
                bat "dir /b /a-d"
-               bat "docker ps"
+               bat "docker ps -q -f name='lts'"
 //         }
             }
         }
