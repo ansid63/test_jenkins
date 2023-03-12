@@ -62,7 +62,7 @@ pipeline {
                echo "Current workspace is ${env.WORKSPACE}"
                bat "dir /b /a-d"
                def status = bat(returnStatus: true, script: 'docker ps -q -f name="lts"').trim()
-               if (status.grep('a04e81d663a0') {
+               if (status.grep('a04e81d663a0')) {
                   echo "Selenoid worked well, container:  ${status}"
                } else {
                   echo "Selenoid broken"
