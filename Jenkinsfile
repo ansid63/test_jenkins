@@ -61,8 +61,12 @@ pipeline {
 //             sh "./cm_linux_amd64 selenoid status"
                echo "Current workspace is ${env.WORKSPACE}"
                bat "dir /b /a-d"
-               echo "Selenoid worked well, container: "
-               bat 'docker ps -q -f name="lts"'
+               def status = bat(returnStatus: true, script: 'docker ps -q -f name="lts"')
+               if (status) {
+                  echo "Selenoid worked well, container:  ${status}"
+               } else {
+                  echo "Selenoid broken"
+               }
                 }
             }
         }
