@@ -61,8 +61,8 @@ pipeline {
 //             sh "./cm_linux_amd64 selenoid status"
                echo "Current workspace is ${env.WORKSPACE}"
                bat "dir /b /a-d"
-               def status = bat(returnStatus: true, script: 'docker ps').trim()
-               if ("lts" in status) {
+               def status = bat(returnS: true, script: 'docker ps').toString()
+               if (status.contains("lts")) {
                   echo "Selenoid worked well!"
                } else {
                   echo "Selenoid broken"
