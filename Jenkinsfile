@@ -113,7 +113,7 @@ pipeline {
                     script {
                         def summaryJson = readJSON file: 'browsers.json'
                         def message = summaryJson["chrome"]["versions"]["latest"]["port"]
-                        bat 'curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"content\": \"$message\"}" https://discord.com/api/webhooks/1086161330085564456/6rjpLNHotfh1r4NYykCqAq1Xa0DnQw4ZN0WVu0kDX1ehlcpSzorpXTmBl2MUlIAzF4qd'
+                        bat 'curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"content\": \"$message\"}" https://discord.com/api/webhooks/1086170902061916181/iecQSsEpCaFaqW4RM7k24vpI5EvYXbgykpNJQSOBruhTvuZxNpqMCtveSxIE4wSPaB95'
                         }
                     }
                 }
