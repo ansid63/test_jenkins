@@ -112,7 +112,9 @@ pipeline {
                 catchError {
                     script {
                         def summaryJson = readJSON file: 'browsers.json'
-                        println summaryJson["chrome"]
+                        def message = summaryJson["chrome"]["versions"]["latest"]["image"]
+                        def webhookUrl = 'https://discord.com/api/webhooks/1086153224005881866/x4sxTKbytIQDCL9MqieB-8ZDvYWquXZMxr5iU7dMwQNvnDYnPsFP0JM-VvRTuy9mld3q'
+                        bat "curl -H 'Content-Type: application/json' -d '{"content": "$message"}' $webhookUrl"
                         }
                     }
                 }
