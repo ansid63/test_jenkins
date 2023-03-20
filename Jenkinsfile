@@ -113,7 +113,7 @@ pipeline {
                     script {
                         def summaryJson = readJSON file: 'browsers.json'
                         def message = summaryJson["chrome"]["versions"]["latest"]["port"]
-                        discordSend description: 'Test', footer: 'Test message', link: env.BUILD_URL, result: currentBuild.currentResult, unstable: false, title: JOB_NAME, webhookURL: 'https://discord.com/api/webhooks/1087362795785424947/qWA6xWTfKYCgK_Av3UOUDUt29pEBypK55OhaBYYTyL-05jPxZQBHUrUW_ATFEydY2MO7'
+                        discordSend description: message, footer: 'Test message', link: env.BUILD_URL, result: currentBuild.currentResult, unstable: false, title: JOB_NAME, webhookURL: 'https://discord.com/api/webhooks/1087381841373306971/hjkSBNULQZCgFJCgeQwDgTge5IF82gIBiUTSWuTjgbbpjMjLx4DHThbWzRJpi0O_mM1A'
                         }
                     }
                 }
