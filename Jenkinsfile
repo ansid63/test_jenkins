@@ -113,8 +113,9 @@ pipeline {
                     script {
                         def summaryJson = readJSON file: 'browsers.json'
                         def message = summaryJson["chrome"]["versions"]["latest"]["port"]
+                        def reportLink = "http://jenkins.alrosa.ru/job/CDSRE_testing/job/CADAS_DM_tests/job/Run%20tests/allure/"
                         def webhookUrl = 'https://discord.com/api/webhooks/1087674838459629568/W82I87bge35ExXLEzIOYNhknPUJUUeulQK-SvsygMF2gw-_h3Z1g1RbUWq6Ko0b5r0AE'
-                        echo """curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data \"{\\\"content\\\": \\\"$message\\\"}\" --url $webhookUrl"""
+                        echo """curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data \"{\\\"content\\\": \\\"$message link $reportLink\\\"}\" --url $webhookUrl"""
                         bat """curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data \"{\\\"content\\\": \\\"$message\\\"}\" --url $webhookUrl"""
                         }
                     }
