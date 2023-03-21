@@ -115,7 +115,7 @@ pipeline {
                         def json_ = summaryJson["chrome"]["versions"]["latest"]["port"]
                         def reportLink = "http://jenkins.alrosa.ru/job/CDSRE_testing/job/CADAS_DM_tests/job/Run%20tests/allure/"
                         def message = "Total: $json_. Link: $reportLink"
-                        def webhookUrl = 'https://discord.com/api/webhooks/1087703148111613962/_YeTDOdIzVaMbMNxIlluK7UwAqULg0J6_ePE0qHin4F_2Gw3xWDp_8LfolOZKAzdUz_g/github'
+                        def webhookUrl = 'https://discord.com/api/webhooks/1087703148111613962/_YeTDOdIzVaMbMNxIlluK7UwAqULg0J6_ePE0qHin4F_2Gw3xWDp_8LfolOZKAzdUz_g'
                         echo """curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data \"{\\\"content\\\": \\\"$message\\\"}\" --url $webhookUrl"""
                         bat """curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data \"{\\\"content\\\": \\\"$message\\\"}\" --url $webhookUrl"""
                         }
