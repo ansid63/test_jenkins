@@ -111,9 +111,10 @@ pipeline {
             steps {
                 catchError {
                     script {
+                        def webhookUrl = 'https://discord.com/api/webhooks/1087662819715076157/7S2743BjAeT9zkJFtHdcwOPJRP1MVrSUrCoSp902LfjX_U8qvAQECaeq0VyM5pEPShWd'
                         def summaryJson = readJSON file: 'browsers.json'
                         def message = summaryJson["chrome"]["versions"]["latest"]["port"]
-                        discordSend description: message, footer: 'Test message', link: env.BUILD_URL, result: currentBuild.currentResult, unstable: false, title: JOB_NAME, webhookURL: 'https://discord.com/api/webhooks/1087662819715076157/7S2743BjAeT9zkJFtHdcwOPJRP1MVrSUrCoSp902LfjX_U8qvAQECaeq0VyM5pEPShWd'
+                        sh 'curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST -d "{\"content\": \"$message\"}" $webhookUrl'
                         }
                     }
                 }
