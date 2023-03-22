@@ -114,9 +114,9 @@ pipeline {
                       }
                 }
               }
-    stage("Rocket Chat") {
+    stage("Discord Chat") {
             steps {
-                   bat """curl -X POST -H \"Content-Type:application/json\" -d \"{\\\"content\\\": \\\"check da microphone\\\"}\" --url https://discord.com/api/webhooks/1087250772900712510/hterfWJzCTRwLqhDVP83oYLTd1zxbYyoV6eBRvfuZ8GOpwxrlMnheL7JA6B4vTFuKfhT"""
+                   bat """curl -X POST -H \"Content-Type:application/json\" -v -d \"{\\\"content\\\": \\\"check da microphone\\\"}\" --url curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"content\": \"check da microphone\"}" https://discord.com/api/webhooks/1088058148411158609/6kJkLUidP-ipXWRrGPmhug8c2gjPlsxO5sjXHLoEJbVasv8c6M-OiEE3LTYhddU_2L1g"""
                     }
                 }
     }
