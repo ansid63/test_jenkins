@@ -114,7 +114,7 @@ pipeline {
                       }
                 }
               }
-    stage("Rocket Chat") {
+    stage("Discord Chat") {
         steps {
                 script {
                     def summaryJson = readJSON file: 'browsers.json'
