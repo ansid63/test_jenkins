@@ -107,21 +107,6 @@ pipeline {
 //         ])
 //       }
 //      }
-    stage("Rocket Chat") {
-            steps {
-                catchError {
-                    script {
-                        def summaryJson = readJSON file: 'browsers.json'
-                        def json_ = summaryJson["chrome"]["versions"]["latest"]["port"]
-                        def reportLink = "http://jenkins.alrosa.ru/job/CDSRE_testing/job/CADAS_DM_tests/job/Run%20tests/allure/"
-                        def message = "Total: $json_. Link: $reportLink"
-                        def webhookUrl = 'https://discord.com/api/webhooks/1087703148111613962/_YeTDOdIzVaMbMNxIlluK7UwAqULg0J6_ePE0qHin4F_2Gw3xWDp_8LfolOZKAzdUz_g'
-                        echo """curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data \"{\\\"content\\\": \\\"$message\\\"}\" --url $webhookUrl"""
-                        bat """curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data \"{\\\"content\\\": \\\"$message\\\"}\" --url $webhookUrl"""
-                        }
-                    }
-                }
-            }
     stage('Remove image') {
         steps {
             script {
@@ -129,6 +114,17 @@ pipeline {
                       }
                 }
               }
-
+    stage("Rocket Chat") {
+        steps {
+                script {
+                    def summaryJson = readJSON file: 'browsers.json'
+                    def json_ = summaryJson["chrome"]["versions"]["latest"]["port"]
+                    def reportLink = "http://jenkins.alrosa.ru/job/CDSRE_testing/job/CADAS_DM_tests/job/Run%20tests/allure/"
+                    def message = "Total: $json_. Link: $reportLink"
+                    def webhookUrl = 'https://discord.com/api/webhooks/1087805155401007175/NepxHqh6N43kkd7Nc5YdrVNtz_qZ9NZG1BnujQfXDpPjMD4ooDWT7p3DuAz06UyNx205'
+                    bat """curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data \"{\\\"content\\\": \\\"$message\\\"}\" --url $webhookUrl"""
+                    }
+            }
+        }
     }
   }
