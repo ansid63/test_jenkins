@@ -121,7 +121,7 @@ pipeline {
                         def message = summaryJson["chrome"]["versions"]["latest"]["port"]
                         def reportLink = "http://jenkins.alrosa.ru/job/CDSRE_testing/job/CADAS_DM_tests/job/Run%20tests/allure/"
                         def webhookUrl = 'https://discord.com/api/webhooks/1087971022600421376/DewD8n4UBBZA3gQqok-pCNbBAuvH0SDRNNRzZw3HDt6jJhYIlwBnNCasSK5-ikEn0zem'
-                        discordSend description: message, footer: 'Test message', link: reportLink, result: currentBuild.currentResult, unstable: false, title: JOB_NAME, webhookURL: webhookUrl
+                        discordSend description: message, footer: reportLink, link: env.BUILD_URL, result: currentBuild.currentResult, unstable: false, title: JOB_NAME, webhookURL: webhookUrl
                         }
                     }
                 }
