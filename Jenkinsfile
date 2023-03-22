@@ -116,13 +116,7 @@ pipeline {
               }
     stage("Rocket Chat") {
             steps {
-                    script {
-                        def summaryJson = readJSON file: 'browsers.json'
-                        def message = summaryJson["chrome"]["versions"]["latest"]["port"]
-                        def reportLink = "http://jenkins.alrosa.ru/job/CDSRE_testing/job/CADAS_DM_tests/job/Run%20tests/allure/"
-                        def webhookUrl = 'https://discord.com/api/webhooks/1087981077378908220/gj3HRvj4_yJTlO5BCdAK5v1TK28zkUQH5QZ8rG6oqgb5HIkJLWjhLq9ir-VaYeCTPN5J'
-                        }
-                    discordSend description: message, footer: reportLink, link: env.BUILD_URL, result: currentBuild.currentResult, unstable: false, title: JOB_NAME, webhookURL: webhookUrl
+                    discordSend description: 'Test', footer: "Test footer", link: env.BUILD_URL, result: currentBuild.currentResult, unstable: false, title: JOB_NAME, webhookURL: 'https://discord.com/api/webhooks/1087981077378908220/gj3HRvj4_yJTlO5BCdAK5v1TK28zkUQH5QZ8rG6oqgb5HIkJLWjhLq9ir-VaYeCTPN5J'
                     }
                 }
     }
