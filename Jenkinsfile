@@ -114,17 +114,16 @@ pipeline {
                       }
                 }
               }
-    stage("Discord Chat") {
-        steps {
-                script {
-                    def summaryJson = readJSON file: 'browsers.json'
-                    def json_ = summaryJson["chrome"]["versions"]["latest"]["port"]
-                    def reportLink = "http://jenkins.alrosa.ru/job/CDSRE_testing/job/CADAS_DM_tests/job/Run%20tests/allure/"
-                    def message = "Total: $json_. Link: $reportLink"
-                    def webhookUrl = 'https://discord.com/api/webhooks/1087805155401007175/NepxHqh6N43kkd7Nc5YdrVNtz_qZ9NZG1BnujQfXDpPjMD4ooDWT7p3DuAz06UyNx205'
-                    bat """curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data \"{\\\"content\\\": \\\"$message\\\"}\" --url $webhookUrl"""
+    stage("Rocket Chat") {
+            steps {
+                    script {
+                        def summaryJson = readJSON file: 'browsers.json'
+                        def message = summaryJson["chrome"]["versions"]["latest"]["port"]
+                        def reportLink = "http://jenkins.alrosa.ru/job/CDSRE_testing/job/CADAS_DM_tests/job/Run%20tests/allure/"
+                        def webhookUrl = 'https://discord.com/api/webhooks/1087971022600421376/DewD8n4UBBZA3gQqok-pCNbBAuvH0SDRNNRzZw3HDt6jJhYIlwBnNCasSK5-ikEn0zem'
+                        discordSend description: message, footer: 'Test message', link: reportLink, result: currentBuild.currentResult, unstable: false, title: JOB_NAME, webhookURL: webhookUrl
+                        }
                     }
-            }
-        }
+                }
     }
   }
