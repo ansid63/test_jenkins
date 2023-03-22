@@ -116,7 +116,7 @@ pipeline {
               }
     stage("Rocket Chat") {
             steps {
-                    discordSend description: 'Test', footer: "Test footer", link: env.BUILD_URL, result: currentBuild.currentResult, unstable: false, title: JOB_NAME, webhookURL: 'https://discord.com/api/webhooks/1087982547671207996/v1a934GsXfEf1EGEKhNKp60ejVRIIXaTo0uV76vSsJKfIMryQYZ8pJSxkbwg4uxzmy6r'
+                   bat """curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data \"{\\\"content\\\": \\\"check da microphone\\\"}\" --url https://discord.com/api/webhooks/1087984745339687062/G1hmtmqoPG5Ng2kcg1RZL0PdcGFa0xawOjMf36tvSajnsIwQEEPvmkedZuiQfPvuKcXQ"""
                     }
                 }
     }
