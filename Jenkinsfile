@@ -116,6 +116,7 @@ pipeline {
               }
     stage("Discord Chat") {
             steps {
+                script {
                    def summaryJson = readJSON file: 'browsers.json'
                     def json_ = summaryJson["chrome"]["versions"]["latest"]["port"]
                     def reportLink = "http://jenkins.alrosa.ru/job/CDSRE_testing/job/CADAS_DM_tests/job/Run%20tests/allure/"
@@ -124,5 +125,6 @@ pipeline {
                     bat """curl -H "Content-Type:application/json" -v -X POST --data \"{\\\"content\\\": \\\"$message\\\"}\" --url $webhookUrl"""
                     }
                 }
+            }
     }
   }
