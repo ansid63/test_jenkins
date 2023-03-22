@@ -116,7 +116,7 @@ pipeline {
               }
     stage("Rocket Chat") {
             steps {
-                   bat """curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data \"{\\\"content\\\": \\\"check da microphone\\\"}\" --url https://discord.com/api/webhooks/1087984745339687062/G1hmtmqoPG5Ng2kcg1RZL0PdcGFa0xawOjMf36tvSajnsIwQEEPvmkedZuiQfPvuKcXQ"""
+                   bat """curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data \"{\\\"content\\\": \\\"check da microphone\\\"}\" --url https://discord.com/api/webhooks/1087990713712652329/A8-QDie-ico7lWzV_N0F_dpJZ83UZbag5pSm-StbZDShrcv1T1IX1IxMp1vv9SILg19g/github"""
                     }
                 }
     }
