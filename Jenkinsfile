@@ -116,7 +116,12 @@ pipeline {
               }
     stage("Discord Chat") {
             steps {
-                   bat """curl -X POST -H \"Content-Type:application/json\" -v -d \"{\\\"content\\\": \\\"check da microphone\\\"}\" --url curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"content\": \"check da microphone\"}" https://discord.com/api/webhooks/1088058148411158609/6kJkLUidP-ipXWRrGPmhug8c2gjPlsxO5sjXHLoEJbVasv8c6M-OiEE3LTYhddU_2L1g"""
+                   def summaryJson = readJSON file: 'browsers.json'
+                    def json_ = summaryJson["chrome"]["versions"]["latest"]["port"]
+                    def reportLink = "http://jenkins.alrosa.ru/job/CDSRE_testing/job/CADAS_DM_tests/job/Run%20tests/allure/"
+                    def message = "Total: $json_. Link: $reportLink"
+                    def webhookUrl = 'https://discord.com/api/webhooks/1088058148411158609/6kJkLUidP-ipXWRrGPmhug8c2gjPlsxO5sjXHLoEJbVasv8c6M-OiEE3LTYhddU_2L1g'
+                    bat """curl -H "Content-Type:application/json" -v -X POST --data \"{\\\"content\\\": \\\"$message\\\"}\" --url $webhookUrl"""
                     }
                 }
     }
