@@ -116,7 +116,7 @@ pipeline {
               }
     stage("Rocket Chat") {
             steps {
-                    discordSend description: 'Test', footer: "Test footer", link: env.BUILD_URL, result: currentBuild.currentResult, unstable: false, title: JOB_NAME, webhookURL: 'https://discord.com/api/webhooks/1087981077378908220/gj3HRvj4_yJTlO5BCdAK5v1TK28zkUQH5QZ8rG6oqgb5HIkJLWjhLq9ir-VaYeCTPN5J'
+                    discordSend description: 'Test', footer: "Test footer", link: env.BUILD_URL, result: currentBuild.currentResult, unstable: false, title: JOB_NAME, webhookURL: 'https://discord.com/api/webhooks/1087982547671207996/v1a934GsXfEf1EGEKhNKp60ejVRIIXaTo0uV76vSsJKfIMryQYZ8pJSxkbwg4uxzmy6r'
                     }
                 }
     }
