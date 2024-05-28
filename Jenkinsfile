@@ -110,18 +110,20 @@ pipeline {
        stage('Delete Docker Images') {
             steps {
                 script {
-                    def oneMonthAgo = new Date().minus(30).format("yyyy-MM-dd'T'HH:mm:ss'Z'")
-                    def imagesToKeep = ['87e985ebae1b', 'd3557caae17e', 'cd995503ebba', 'fdc2ce7d1eb8']
+                    def fiveDaysAgo = new Date().minus(5).format("yyyy-MM-dd'T'HH:mm:ss'Z'")
+                    def excludedImages = ['87e985ebae1b', 'd3557caae17e', 'cd995503ebba', 'fdc2ce7d1eb8']
 
-                    def dockerImages = sh(script: "docker images --format '{{json .}}'", returnStdout: true).trim()
-                    def parsedDockerImages = readJSON text: dockerImages
+                    // Get a list of all Docker images
+                    def images = bat(returnStdout: true, script: 'docker images --format "{{.ID}} {{.CreatedAt}}"').trim().split('\n')
 
-                    parsedDockerImages.each { image ->
-                        def imageId = image.ID
-                        def createdAt = image.CreatedAt
+                    // Iterate through the images and delete those that meet the criteria
+                    for (int i = 0; i < images.length; i++) {
+                        def imageInfo = images[i].split(' ')
+                        def imageId = imageInfo[0]
+                        def imageCreatedAt = imageInfo[1]
 
-                        if (imagesToKeep.contains(imageId) == false && createdAt.compareTo(oneMonthAgo) < 0) {
-                            sh "docker rmi ${imageId}"
+                        if (imageCreatedAt < fiveDaysAgo && !excludedImages.contains(imageId)) {
+                            bat "docker rmi ${imageId}"
                         }
                     }
                 }
