@@ -107,24 +107,37 @@ pipeline {
 //         ])
 //       }
 //      }
-    stage('Remove image') {
-        steps {
-            script {
-                bat "docker rmi python-tests:latest"
-                      }
-                }
-              }
-    stage("Discord Chat") {
+       stage('Delete Docker Images') {
             steps {
                 script {
-                   def summaryJson = readJSON file: 'browsers.json'
-                    def json_ = summaryJson["chrome"]["versions"]["latest"]["port"]
-                    def reportLink = "http://jenkins.alrosa.ru/job/CDSRE_testing/job/CADAS_DM_tests/job/Run%20tests/allure/"
-                    def message = "Total: $json_. Link: $reportLink"
-                    def webhookUrl = 'https://discord.com/api/webhooks/1088058148411158609/6kJkLUidP-ipXWRrGPmhug8c2gjPlsxO5sjXHLoEJbVasv8c6M-OiEE3LTYhddU_2L1g'
-                    bat """curl -H "Content-Type:application/json" -v -X POST --data \"{\\\"content\\\": \\\"$message\\\"}\" --url $webhookUrl"""
+                    def oneMonthAgo = new Date().minus(30).format("yyyy-MM-dd'T'HH:mm:ss'Z'")
+                    def imagesToKeep = ['87e985ebae1b', 'd3557caae17e', 'cd995503ebba', 'fdc2ce7d1eb8']
+
+                    def dockerImages = sh(script: "docker images --format '{{json .}}'", returnStdout: true).trim()
+                    def parsedDockerImages = readJSON text: dockerImages
+
+                    parsedDockerImages.each { image ->
+                        def imageId = image.Id
+                        def createdAt = image.CreatedAt
+
+                        if (imagesToKeep.contains(imageId) == false && createdAt.compareTo(oneMonthAgo) < 0) {
+                            sh "docker rmi ${imageId}"
+                        }
                     }
                 }
             }
+        }
+//    stage("Discord Chat") {
+//            steps {
+//                script {
+//                   def summaryJson = readJSON file: 'browsers.json'
+//                    def json_ = summaryJson["chrome"]["versions"]["latest"]["port"]
+//                    def reportLink = "http://jenkins.alrosa.ru/job/CDSRE_testing/job/CADAS_DM_tests/job/Run%20tests/allure/"
+//                    def message = "Total: $json_. Link: $reportLink"
+//                    def webhookUrl = 'https://discord.com/api/webhooks/1088058148411158609/6kJkLUidP-ipXWRrGPmhug8c2gjPlsxO5sjXHLoEJbVasv8c6M-OiEE3LTYhddU_2L1g'
+//                    bat """curl -H "Content-Type:application/json" -v -X POST --data \"{\\\"content\\\": \\\"$message\\\"}\" --url $webhookUrl"""
+//                    }
+//                }
+//            }
     }
   }
