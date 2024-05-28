@@ -117,7 +117,7 @@ pipeline {
                     def parsedDockerImages = readJSON text: dockerImages
 
                     parsedDockerImages.each { image ->
-                        def imageId = image.Id
+                        def imageId = image.ID
                         def createdAt = image.CreatedAt
 
                         if (imagesToKeep.contains(imageId) == false && createdAt.compareTo(oneMonthAgo) < 0) {
